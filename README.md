@@ -6,11 +6,14 @@ Default Bottom Behaviour             |  Tricky Bottom Behaviour
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79693773-5c53c600-8275-11ea-95e5-e91945e67fde.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79693821-96bd6300-8275-11ea-96bd-f4ac51ea2193.gif"></img>  
 
-Android Navigation Component default behavior haven't got bottom navigation back stack. If you wanna add back stack to your bottomNavigationMenu it's easy and simple. Just add 
-```android:menuCategory="secondary"```
+Android Navigation Component default behavior hasn't got bottom navigation back stack. If you wanna add back stack to your `bottomNavigationMenu` it's easy and simple. Just add:
+
+```xml
+android:menuCategory="secondary"
+```
 to your all menu items.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
@@ -43,11 +46,11 @@ menuCategory="secondary"             |  Tricky "secondary"
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79694012-8e195c80-8276-11ea-9526-35701db37d14.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79694026-9f626900-8276-11ea-869f-160b78bbe8c5.gif"></img>  
 
-With adding secondary to your items you gonna have backstack but if you want a stack like in Instagram or Youtube make the following changes: 
+With adding secondary to your items you gonna have backstack but if you want a stack like in **Instagram** or **Youtube** make the following changes: 
 
-First of all we need an extension for our navController.
+First of all we need an extension for our `navController`.
 
-```
+```kotlin
 fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean): Boolean {
     var popped: Boolean
     while (true) {
@@ -60,9 +63,9 @@ fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean)
 }
 ```
 
-Then we must add onBackPressedDispatcher to our bottom fragments.
+Then we must add `onBackPressedDispatcher` to our bottom fragments.
 
-```
+```kotlin
   override fun onDestroyView() {
         super.onDestroyView()
 
@@ -79,9 +82,9 @@ Then we must add onBackPressedDispatcher to our bottom fragments.
     }
 ```
 
-With this trick we have an backStack like Instagram and Youtube but we forgot something. As you know if you setup your toolbar with navController, your backPress behaviour works with navController and onBackPressedDispatcher just effects your activiy's backPress. If you wanna get same bottom behavior with your toolbar navigate button. Add to following code to your activity.
+With this trick we have a back stack like **Instagram** and **Youtube** but we forgot something. As you know if you setup your `toolbar` with `navController`, your back press behaviour works with `navController` and `onBackPressedDispatcher` just affects your activiy's back press. If you wanna get the same bottom behavior with your toolbar navigate button. Add to following code to your activity:
 
-```
+```kotlin
  binding.toolbar.setNavigationOnClickListener {
             when (navController.currentDestination?.id) {
                 R.id.searchFragment, R.id.gamesFragment, R.id.notificationsFragment -> {
@@ -134,9 +137,9 @@ Default Replace             |  Tricky Replace
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79694515-5eb81f00-8279-11ea-9d00-91035a331d9b.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79694535-7abbc080-8279-11ea-816c-75d4d9e1943c.gif"></img> 
 
-As you know, if you call findNavController().navigate() it replaces your current fragment with other and when you call backPress maybe your state is not saved. An easiest solution is passing id to your all views. It works with scrollView,Recyclerview etc..
+As you know, if you call `findNavController().navigate()` it replaces your current fragment with other and when you call back press maybe your state is not saved. The easiest solution is passing id to your all views. It works with ScrollView, Recyclerview, etc..
 
-But best solution is [Event.kt](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af) or [EventObserver.kt](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9)
+But the best solution is [Event.kt](https://gist.github.com/JoseAlcerreca/5b661f1800e1e654f07cc54fe87441af) or [EventObserver.kt](https://gist.github.com/JoseAlcerreca/e0bba240d9b3cffa258777f12e5c0ae9)
 
 Tricky Add
 :-------------------------:
