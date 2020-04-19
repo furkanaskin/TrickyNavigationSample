@@ -1,5 +1,5 @@
 # TrickyNavigationSample
-This repository contains some tricks about Android Navigation Component. 3rd party libraries not used.
+This repository contains some tricks about `Android Navigation Component`. 3rd party libraries not used.
 
 ### Outputs
 Default Bottom Behaviour             |  Tricky Bottom Behaviour           
@@ -66,36 +66,35 @@ fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean)
 Then we must add `onBackPressedDispatcher` to our bottom fragments.
 
 ```kotlin
-  override fun onDestroyView() {
-        super.onDestroyView()
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val navController = findNavController()
-            if (navController.currentBackStackEntry?.destination?.id != null) {
-                findNavController().popBackStackAllInstances(
-                    navController.currentBackStackEntry?.destination?.id!!,
-                    true
-                )
-            } else
-                navController.popBackStack()
-        }
+override fun onDestroyView() {
+    super.onDestroyView(
+    requireActivity().onBackPressedDispatcher.addCallback(this) {
+        val navController = findNavController()
+        if (navController.currentBackStackEntry?.destination?.id != null) {
+            findNavController().popBackStackAllInstances(
+                navController.currentBackStackEntry?.destination?.id!!,
+                true
+            )
+        } else
+            navController.popBackStack()
     }
+ }
 ```
 
 With this trick we have a back stack like **Instagram** and **Youtube** but we forgot something. As you know if you setup your `toolbar` with `navController`, your back press behaviour works with `navController` and `onBackPressedDispatcher` just affects your activiy's back press. If you wanna get the same bottom behavior with your toolbar navigate button. Add to following code to your activity:
 
 ```kotlin
- binding.toolbar.setNavigationOnClickListener {
-            when (navController.currentDestination?.id) {
-                R.id.searchFragment, R.id.gamesFragment, R.id.notificationsFragment -> {
-                    if (onBackPressedDispatcher.hasEnabledCallbacks())
-                        onBackPressedDispatcher.onBackPressed()
-                    else
-                        navController.navigateUp()
-                }
-                else -> navController.navigateUp()
-            }
+binding.toolbar.setNavigationOnClickListener {
+    when (navController.currentDestination?.id) {
+        R.id.searchFragment, R.id.gamesFragment, R.id.notificationsFragment -> {
+            if (onBackPressedDispatcher.hasEnabledCallbacks())
+                onBackPressedDispatcher.onBackPressed()
+            else
+                navController.navigateUp()
         }
+        else -> navController.navigateUp()
+    }
+ }
 ```
 
 Dynamic Label
@@ -106,33 +105,34 @@ As you know, if you setup your toolbar with navController, your toolbar titles h
 
 Define your argument as string in nav_graph
 
-```kotlin
-   <fragment
-        android:id="@+id/dynamicTitleFragment"
-        android:name="com.faskn.trickynavigationsample.fragments.DynamicTitleFragment"
-        android:label="{title}"
-        tools:layout="@layout/fragment_dynamic_title" >
-        <argument
-            android:name="title"
-            app:argType="string"
-            android:defaultValue="Title" />
-    </fragment>
+```xml
+<fragment
+    android:id="@+id/dynamicTitleFragment"
+    android:name="com.faskn.trickynavigationsample.fragments.DynamicTitleFragment"
+    android:label="{title}"
+    tools:layout="@layout/fragment_dynamic_title" >
+    <argument
+        android:name="title"
+        app:argType="string"
+        android:defaultValue="Title" />
+</fragment>
 ```
+
 don't forget to use your argument as label
 
 ```xml
-  android:label="{title}"
+android:label="{title}"
 ```
 and then pass data between destinations
 
 ```kotlin
-  binding.buttonDynamicTitleNavigate.setOnClickListener {
-            findNavController().navigate(
-                SearchFragmentDirections.actionSearchFragmentToDynamicTitleFragment(
-                    binding.editTextTitle.text.toString()
-                )
-            )
-        }
+binding.buttonDynamicTitleNavigate.setOnClickListener {
+    findNavController().navigate(
+        SearchFragmentDirections.actionSearchFragmentToDynamicTitleFragment(
+            binding.editTextTitle.text.toString()
+        )
+    )
+ }
 ```
 
 
