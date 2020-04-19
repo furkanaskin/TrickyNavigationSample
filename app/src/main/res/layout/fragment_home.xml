@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HomeFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="00:00:00" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCounter"
+        android:layout_margin="12dp"
+        android:gravity="center"
+        android:text="This timer never gonna stop when you add fragment and it's not serving from viewModel or any singleton. It's an ui related timer." />
+
+    <TextView
+        android:id="@+id/textViewHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Trick : Add" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonAddFragment"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewHome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Add Fragment"
+        app:strokeColor="@color/purple700"
+        app:strokeWidth="2dp" />
+
+</RelativeLayout>

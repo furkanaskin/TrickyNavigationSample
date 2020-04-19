@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main.xml"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_bottomSheetSampleFragment"
+            app:destination="@id/bottomSheetSampleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_dynamicTitleFragment"
+            app:destination="@id/dynamicTitleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.GamesFragment"
+        android:label="Games"
+        tools:layout="@layout/fragment_games" >
+        <action
+            android:id="@+id/action_gamesFragment_to_dynamicTitleFragment"
+            app:destination="@id/dynamicTitleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <dialog
+        android:id="@+id/bottomSheetSampleFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.BottomSheetSampleFragment"
+        android:label="fragment_bottom_sheet_sample"
+        tools:layout="@layout/fragment_bottom_sheet_sample">
+        <action
+            android:id="@+id/action_bottomSheetSampleFragment_self"
+            app:destination="@id/bottomSheetSampleFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/dynamicTitleFragment"
+        android:name="com.faskn.trickynavigationsample.fragments.DynamicTitleFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_dynamic_title" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Title" />
+    </fragment>
+</navigation>
