@@ -105,7 +105,8 @@ Dynamic Label
 As you know, if you setup your toolbar with navController, your toolbar titles handling from navController. Navcontroller uses your fragment labels as title. For making this dynamically we need to use [Android Navigation Component - SafeArgs](https://developer.android.com/guide/navigation/navigation-pass-data)
 
 Define your argument as string in nav_graph
-```
+
+```kotlin
    <fragment
         android:id="@+id/dynamicTitleFragment"
         android:name="com.faskn.trickynavigationsample.fragments.DynamicTitleFragment"
@@ -118,11 +119,13 @@ Define your argument as string in nav_graph
     </fragment>
 ```
 don't forget to use your argument as label
-```
+
+```xml
   android:label="{title}"
 ```
 and then pass data between destinations
-```
+
+```kotlin
   binding.buttonDynamicTitleNavigate.setOnClickListener {
             findNavController().navigate(
                 SearchFragmentDirections.actionSearchFragmentToDynamicTitleFragment(
