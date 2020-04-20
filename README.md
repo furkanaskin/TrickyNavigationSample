@@ -2,7 +2,7 @@
 This repository contains some tricks about `Android Navigation Component`. 3rd party libraries not used.
 
 ### Outputs
-Default Bottom Behaviour             |  Tricky Bottom Behaviour           
+Default Bottom Behaviour   |  Tricky Bottom Behaviour
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79693773-5c53c600-8275-11ea-95e5-e91945e67fde.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79693821-96bd6300-8275-11ea-96bd-f4ac51ea2193.gif"></img>  
 
@@ -42,7 +42,7 @@ to your all menu items.
 </menu>
 ```
 
-menuCategory="secondary"             |  Tricky "secondary"
+menuCategory="secondary"   |  Tricky "secondary"
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79694012-8e195c80-8276-11ea-9526-35701db37d14.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79694026-9f626900-8276-11ea-869f-160b78bbe8c5.gif"></img>  
 
@@ -62,23 +62,45 @@ fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean)
     return popped
 }
 ```
+Then extend your bottom tab fragments from BaseBottomTabFragment, don't forget to use utils functions when you try to navigate from tab starter fragments.
 
-Then we must add `onBackPressedDispatcher` to our bottom fragments.
+BaseBottomTabFragment has `onBackPressedDispatcher` for handling back press.
+Also it has isNavigated boolean, because if it's trying to navigate in same tab or another tab we don't need to addCallback.
 
 ```kotlin
-override fun onDestroyView() {
-    super.onDestroyView(
-    requireActivity().onBackPressedDispatcher.addCallback(this) {
-        val navController = findNavController()
-        if (navController.currentBackStackEntry?.destination?.id != null) {
-            findNavController().popBackStackAllInstances(
-                navController.currentBackStackEntry?.destination?.id!!,
-                true
-            )
-        } else
-            navController.popBackStack()
+open class BaseBottomTabFragment : Fragment() {
+    var isNavigated = false
+
+    fun navigateWithAction(action: NavDirections) {
+        isNavigated = true
+        findNavController().navigate(action)
     }
- }
+
+    fun navigate(resId: Int) {
+        isNavigated = true
+        findNavController().navigate(resId)
+    }
+
+    fun switchTabWithId(resId: Int){
+        isNavigated = false
+        findNavController().navigate(resId)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (!isNavigated)
+            requireActivity().onBackPressedDispatcher.addCallback(this) {
+                val navController = findNavController()
+                if (navController.currentBackStackEntry?.destination?.id != null) {
+                    findNavController().popBackStackAllInstances(
+                        navController.currentBackStackEntry?.destination?.id!!,
+                        true
+                    )
+                } else
+                    navController.popBackStack()
+            }
+    }
+}
 ```
 
 With this trick we have a back stack like **Instagram** and **Youtube** but we forgot something. As you know if you setup your `toolbar` with `navController`, your back press behaviour works with `navController` and `onBackPressedDispatcher` just affects your activiy's back press. If you wanna get the same bottom behavior with your toolbar navigate button. Add to following code to your activity:
@@ -136,7 +158,7 @@ binding.buttonDynamicTitleNavigate.setOnClickListener {
 ```
 
 
-Default Replace             |  Tricky Replace
+Default Replace            |  Tricky Replace
 :-------------------------:|:-------------------------:|
 <img height="500" src="https://user-images.githubusercontent.com/22769589/79694515-5eb81f00-8279-11ea-9d00-91035a331d9b.gif"></img>  |  <img height="500" src="https://user-images.githubusercontent.com/22769589/79694535-7abbc080-8279-11ea-816c-75d4d9e1943c.gif"></img> 
 

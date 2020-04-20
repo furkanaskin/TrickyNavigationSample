@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.faskn.trickynavigationsample.R
-import com.faskn.trickynavigationsample.TimerFormatter
 import com.faskn.trickynavigationsample.databinding.FragmentHomeBinding
+import com.faskn.trickynavigationsample.utils.TimerFormatter
 
 class HomeFragment : Fragment() {
 
@@ -37,7 +37,9 @@ class HomeFragment : Fragment() {
 
             override fun onTick(millisUntilFinished: Long) {
                 binding.textViewCounter.text =
-                    TimerFormatter(millisUntilFinished).getRemainingTimeText()
+                    TimerFormatter(
+                        millisUntilFinished
+                    ).getRemainingTimeText()
             }
         }.start()
 

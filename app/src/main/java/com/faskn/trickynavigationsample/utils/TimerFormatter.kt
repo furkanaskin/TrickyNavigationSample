@@ -1,4 +1,4 @@
-package com.faskn.trickynavigationsample
+package com.faskn.trickynavigationsample.utils
 
 /**
  * Created by Furkan on 18.04.2020

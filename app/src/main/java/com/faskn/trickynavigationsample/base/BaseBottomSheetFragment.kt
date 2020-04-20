@@ -1,4 +1,4 @@
-package com.faskn.trickynavigationsample
+package com.faskn.trickynavigationsample.base
 
 import android.app.Dialog
 import android.os.Bundle

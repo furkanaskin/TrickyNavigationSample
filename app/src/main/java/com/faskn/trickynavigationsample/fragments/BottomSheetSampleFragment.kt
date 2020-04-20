@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.navigation.fragment.findNavController
-import com.faskn.trickynavigationsample.BaseBottomSheetFragment
 import com.faskn.trickynavigationsample.R
-import com.faskn.trickynavigationsample.TimerFormatter
+import com.faskn.trickynavigationsample.base.BaseBottomSheetFragment
 import com.faskn.trickynavigationsample.databinding.FragmentBottomSheetSampleBinding
+import com.faskn.trickynavigationsample.utils.TimerFormatter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -54,7 +54,9 @@ class BottomSheetSampleFragment : BaseBottomSheetFragment() {
 
             override fun onTick(millisUntilFinished: Long) {
                 binding.textViewCounter.text =
-                    TimerFormatter(millisUntilFinished).getRemainingTimeText()
+                    TimerFormatter(
+                        millisUntilFinished
+                    ).getRemainingTimeText()
             }
         }.start()
 

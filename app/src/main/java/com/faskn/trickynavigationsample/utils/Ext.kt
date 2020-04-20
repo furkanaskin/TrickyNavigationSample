@@ -1,4 +1,4 @@
-package com.faskn.trickynavigationsample
+package com.faskn.trickynavigationsample.utils
 
 import androidx.navigation.NavController
 

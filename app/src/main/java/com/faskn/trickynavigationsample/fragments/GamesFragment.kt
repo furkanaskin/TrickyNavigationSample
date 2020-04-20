@@ -1,18 +1,13 @@
 package com.faskn.trickynavigationsample.fragments
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.faskn.trickynavigationsample.TimerFormatter
+import com.faskn.trickynavigationsample.base.BaseBottomTabFragment
 import com.faskn.trickynavigationsample.databinding.FragmentGamesBinding
-import com.faskn.trickynavigationsample.popBackStackAllInstances
 
-class GamesFragment : Fragment() {
+class GamesFragment : BaseBottomTabFragment() {
 
     private var _binding: FragmentGamesBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +25,7 @@ class GamesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonReplaceFragment.setOnClickListener {
-            findNavController().navigate(
+            navigateWithAction(
                 GamesFragmentDirections.actionGamesFragmentToDynamicTitleFragment(
                     "Replace"
                 )
@@ -41,16 +36,5 @@ class GamesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val navController = findNavController()
-            if (navController.currentBackStackEntry?.destination?.id != null) {
-                findNavController().popBackStackAllInstances(
-                    navController.currentBackStackEntry?.destination?.id!!,
-                    true
-                )
-            } else
-                navController.popBackStack()
-        }
     }
 }
