@@ -144,7 +144,7 @@ and then pass data between destinations
 
 ```kotlin
 binding.buttonDynamicTitleNavigate.setOnClickListener {
-    findNavController().navigate(
+    navigateWithAction(
         SearchFragmentDirections.actionSearchFragmentToDynamicTitleFragment(
             binding.editTextTitle.text.toString()
         )
