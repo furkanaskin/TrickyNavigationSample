@@ -65,7 +65,7 @@ fun NavController.popBackStackAllInstances(destination: Int, inclusive: Boolean)
 Then extend your bottom tab fragments from BaseBottomTabFragment, don't forget to use utils functions when you try to navigate from tab starter fragments.
 
 BaseBottomTabFragment has `onBackPressedDispatcher` for handling back press.
-Also it has isNavigated boolean, because if it's trying to navigate in same tab or another tab we don't need to addCallback.
+Also it has isNavigated boolean, because if it's trying to navigate in same tab we don't need to addCallback.
 
 ```kotlin
 open class BaseBottomTabFragment : Fragment() {
@@ -78,11 +78,6 @@ open class BaseBottomTabFragment : Fragment() {
 
     fun navigate(resId: Int) {
         isNavigated = true
-        findNavController().navigate(resId)
-    }
-
-    fun switchTabWithId(resId: Int){
-        isNavigated = false
         findNavController().navigate(resId)
     }
 
